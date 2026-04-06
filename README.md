@@ -28,5 +28,12 @@ Preprocessed dataset for *Arabidopsis thaliana* (used in the experiment).
 3. Run the main algorithm from RWRSW_py/Main.py.
 4. Use scripts in RWRSW_re/ to reproduce experiments.
 
+## Note on Large File Uploads
+All large compressed files are split into 20MB volumes to comply with GitHub's file size limit.
+To restore the original file:
+1. Download all volume files (e.g., `.001`, `.002`, `.003`, `.004`) into the same folder.
+2. Right-click the `.001` file and select "Extract here" (using 7-Zip or WinRAR).
+All volumes will be automatically merged to restore the complete original archive.
+
 ## Citation
 If you use this code or dataset in your research, please cite our paper.
