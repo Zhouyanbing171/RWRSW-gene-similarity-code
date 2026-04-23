@@ -5,11 +5,11 @@
 
 数据集信息
 原始数据文件
-- `aracyc_pathways.20230103` – AraCyc 数据库的 EC 分组数据（来源：TAIR - Arabidopsis）。
-- `tair.gaf` – TAIR 的 GO 注释文件（来源：下载注释 |基因本体联盟）。
-- `AraNet.txt` – 原始基因相互作用网络（来源：AraNet - 批量下载）。
-- `AraNet_GS.txt` – 金标准基因对网络（来源：AraNet - 批量下载）。
-- `go-basic.obo` – 基因本体术语总库（来源：下载本体）。
+- `aracyc_pathways.20230103` – AraCyc 数据库的 EC 分组数据（来源：https://www.arabidopsis.org/download/list?dir=Pathways%2FArchived_Data_dumps%2FPMN9_September2014）。
+- `tair.gaf` – TAIR 的 GO 注释文件（来源：https://current.geneontology.org/products/pages/downloads.html）。
+- `AraNet.txt` – 原始基因相互作用网络（来源：https://www.functionalnet.org/aranet/download.html）。
+- `AraNet_GS.txt` – 金标准基因对网络（来源：https://www.functionalnet.org/aranet/download.html）。
+- `go-basic.obo` – 基因本体术语总库（来源：https://www.geneontology.org/docs/download-ontology/）。
 
 中间数据文件
 - `lfcPair.txt` – LFC 评分基因对，源自 `aracyc_pathways.20230103` 预处理。
