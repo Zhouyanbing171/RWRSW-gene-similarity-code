@@ -37,7 +37,9 @@ The LATEST and OFFICIAL README files for each module are located in the
 ROOT OF EACH UNZIPPED FOLDER:
 
 • RWRSW_py/README.md
+
 • RWRSW_re/README.md
+
 • RWRSW_Arabidopsis_thaliana/README.md
 
 Please refer to these three files for up-to-date instructions.
