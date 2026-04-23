@@ -20,10 +20,10 @@
 --------------------
 原始数据文件：
     `biochemical_pathways.tab` – 用于通路分析的酶学委员会（EC）分组数据（来源：http://sgd-archive.yeastgenome.org/）。
-`sgd.gaf` – 酵母基因的基因本体注释文件（来源：下载注释 |基因本体联盟）。
-`YeastNet.v3.txt` – 原始酵母基因相互作用网络（用于构建 `netHashMap`，来源：YeastNet_v2）。
-`YeastNet.v3.benchmark.txt` – 黄金标准基准基因对（用于生成 `geneList.txt`，来源：YeastNet_v2）。
-`go-basic.obo` – 基因本体术语总库文件（来源：下载本体）。
+`sgd.gaf` – 酵母基因的基因本体注释文件（来源：https://current.geneontology.org/products/pages/downloads.html）。
+`YeastNet.v3.txt` – 原始酵母基因相互作用网络（用于构建 `netHashMap`，来源：https://www.functionalnet.org/yeastnet/）。
+`YeastNet.v3.benchmark.txt` – 黄金标准基准基因对（用于生成 `geneList.txt`，来源：https://www.functionalnet.org/yeastnet/）。
+`go-basic.obo` – 基因本体术语总库文件（来源：https://www.geneontology.org/docs/download-ontology/）。
 
 中间数据文件：
     lfcPair.txt                      - LFC 评分基因对，源自 biochemical_pathways.tab 预处理
@@ -50,11 +50,12 @@
 二、拟南芥 (Arabidopsis thaliana) 数据
 --------------------------------------
 原始数据文件：
-    aracyc_pathways.20230103        - AraCyc 数据库 EC 分组数据（来源：TAIR - Arabidopsis）
-    tair.gaf                         - TAIR 基因本体注释文件（来源：下载注释 |基因本体联盟）。
-    AraNet.txt                       - 原始基因相互作用网络（来源：AraNet - 批量下载）。
-    AraNet_GS.txt                    - 金标准基因对网络（来源：AraNet - 批量下载）。
-    go-basic.obo                     - 基因本体术语总库（来源：下载本体）。
+aracyc_pathways.20230103        - AraCyc 数据库 EC 分组数据（来源：https://www.arabidopsis.org/download/list?dir=Pathways%2FArchived_Data_dumps%2FPMN9_September2014）
+注：数据获取困难：官方需申请 + 专用软件，TAIR 仅存 2014 年旧版，国内多数网站无法访问，建议使用配套预处理文件。
+    tair.gaf                         - TAIR 基因本体注释文件（来源：https://current.geneontology.org/products/pages/downloads.html）。
+    AraNet.txt                       - 原始基因相互作用网络（来源：https://www.functionalnet.org/aranet/download.html）。
+    AraNet_GS.txt                    - 金标准基因对网络（来源：https://www.functionalnet.org/aranet/download.html）。
+    go-basic.obo                     - 基因本体术语总库（来源：https://www.geneontology.org/docs/download-ontology/）。
 
 中间数据文件：
     lfcPair.txt                      - LFC 评分基因对，源自 aracyc_pathways.20230103 预处理
@@ -71,15 +72,18 @@
     Arabidopsis_thaliana_biological_process.zip   - biological_process 领域结果
     Arabidopsis_thaliana_molecular_function.zip   - molecular_function 领域结果
 
+重要提醒：拟南芥 EC 分组数据（aracyc_pathways）获取极困难官方完整库：https://plantcyc.org/downloads/，需填写许可协议、下载专用软件，国内访问与下载极不稳定。TAIR 存档：
+https://www.arabidopsis.org/download/list?dir=Pathways%2FArchived_Data_dumps%2FPMN9_September2014，仅能获取 2014 年旧版数据，无新版完整文件。复现本实验时，建议直接使用项目已提供的预处理后 lfcPair.txt，避免重新下载原始 EC 数据。
+
 
 三、人类 (Human) 数据
 --------------------
 原始数据文件：
     PubChem_pathway_text_human.csv  - PubChem 来源的 EC 分组数据
-    goa_human.gaf                  - 人类基因本体注释文件 (来源: 下载注释 |基因本体联盟)
-    HumanNet-XC.tsv             - 原始基因相互作用网络（来源：HumanNet - Batch Downloads）
-    HumanNet-GSP.tsv               - 金标准基因对网络（来源：HumanNet - Batch Downloads）
-    go-basic.obo                    - 基因本体术语总库（来源：下载本体）
+    goa_human.gaf                  - 人类基因本体注释文件 (来源: https://current.geneontology.org/products/pages/downloads.html)
+    HumanNet-XC.tsv             - 原始基因相互作用网络（来源：https://www.functionalnet.org/humannet/download.html）
+    HumanNet-GSP.tsv               - 金标准基因对网络（来源：https://www.functionalnet.org/humannet/download.html）
+    go-basic.obo                    - 基因本体术语总库（来源：https://www.geneontology.org/docs/download-ontology/）
 
 中间数据文件：
     geneList.txt                     - 筛选后基因列表，源自 HumanNet-GSP.tsv
@@ -139,7 +143,8 @@ Main               算法启动类，组合三个接口串联整个流程
    - 选择包含本代码的根目录文件夹，点击 "OK" 完成导入。
    - 等待 PyCharm 完成索引与虚拟环境识别。
 
-4. 数据路径配置
+4.数据路径配置
+提醒：拟南芥原始 EC 数据获取困难，建议直接使用项目提供的 lfcPair.txt，无需重新下载原始文件。
    - 请将对应物种的原始数据文件按照以下结构放置于项目 buf/ 目录下：
          buf/yeast/
          buf/arabidopsis/
@@ -162,6 +167,7 @@ Main               算法启动类，组合三个接口串联整个流程
    - 运行过程中的日志与错误信息将显示在 PyCharm 下方的 "Run" 窗口中。
 
 7. 绘图
+   - Python 版功能限制：本版本仅验证并使用「随机游走相关性得分矩阵计算」与「结果绘图」模块；基因对相似度计算、LFC 评分代码未实际运行测试，无法保证可正常执行，请谨慎使用。
    - 相似度得分计算完成后，可运行 PrintResult.py 或 PrintMap.py（根据实际文件名调整）生成图表。
    - 操作方式同样为右键点击对应脚本文件，选择 "Run"。
 
