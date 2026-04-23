@@ -1,88 +1,107 @@
-一种基于网络增强的基因功能相似性计算方法（拟南芥数据）
+# An Enhanced Network-Based Method for Gene Functional Similarity Calculation (Arabidopsis thaliana Data)
 
-项目描述
-本代码库包含论文《一种基于网络增强的基因功能相似性计算方法》在拟南芥（Arabidopsis thaliana）数据上的应用实现。方法基于拟南芥基因相互作用网络上的重启随机游走算法，整合 GO 注释与生化通路信息，计算基因功能相似性。
+## Project Description
+This repository contains the implementation of the paper "An Enhanced Network-Based Method for Gene Functional Similarity Calculation" on Arabidopsis thaliana data. The method is based on the Random Walk with Restart algorithm on the Arabidopsis gene interaction network, integrating GO annotations and biochemical pathway information to calculate gene functional similarity.
 
-数据集信息
-原始数据文件
-- `aracyc_pathways.20230103` – AraCyc 数据库的 EC 分组数据（来源：https://www.arabidopsis.org/download/list?dir=Pathways%2FArchived_Data_dumps%2FPMN9_September2014）。
-注：数据获取困难：官方需申请 + 专用软件，TAIR 仅存 2014 年旧版，国内多数网站无法访问，建议使用配套预处理文件。
-- `tair.gaf` – TAIR 的 GO 注释文件（来源：https://current.geneontology.org/products/pages/downloads.html）。
-- `AraNet.txt` – 原始基因相互作用网络（来源：https://www.functionalnet.org/aranet/download.html）。
-- `AraNet_GS.txt` – 金标准基因对网络（来源：https://www.functionalnet.org/aranet/download.html）。
-- `go-basic.obo` – 基因本体术语总库（来源：https://www.geneontology.org/docs/download-ontology/）。
+---
 
-中间数据文件
-- `lfcPair.txt` – LFC 评分基因对，源自 `aracyc_pathways.20230103` 预处理。
-- `geneList.txt` – 筛选后的基因列表。
-- `netMatrix.txt` – 网络邻接矩阵。
-- `pMatrix.txt` – 归一化概率转移矩阵。
-- `child.txt`– GO 后代术语集合。
-- `son.txt`–GO中直接后代术语集合。
+## Dataset Information
 
-结果数据文件
-- `result0.9.mat` – 重启参数为 0.9 时的随机游走结果矩阵。
-- `similarityResult0.9.txt` – 重启参数为 0.9 时基因对的相似度得分。
-- `lfc0.9.txt` – 各 EC 分组下的算法得分计算结果。
+### Raw Data Files
+- `aracyc_pathways.20230103` – EC grouping data from the AraCyc database (Source: https://www.arabidopsis.org/download/list?dir=Pathways%2FArchived_Data_dumps%2FPMN9_September2014).  
+  Note: Data access is difficult. Official application and special software are required. Only the 2014 version is available on TAIR, which is inaccessible in most regions of China. It is recommended to use the provided preprocessed files.
+- `tair.gaf` – GO annotation file from TAIR (Source: https://current.geneontology.org/products/pages/downloads.html).
+- `AraNet.txt` – Original gene interaction network (Source: https://www.functionalnet.org/aranet/download.html).
+- `AraNet_GS.txt` – Gold-standard gene pair network (Source: https://www.functionalnet.org/aranet/download.html).
+- `go-basic.obo` – Gene Ontology database file (Source: https://www.geneontology.org/docs/download-ontology/).
 
-重要提醒：拟南芥 EC 分组数据（aracyc_pathways）获取极困难官方完整库：https://plantcyc.org/downloads/，需填写许可协议、下载专用软件，国内访问与下载极不稳定。TAIR 存档：
-https://www.arabidopsis.org/download/list?dir=Pathways%2FArchived_Data_dumps%2FPMN9_September2014，仅能获取 2014 年旧版数据，无新版完整文件。复现本实验时，建议直接使用项目已提供的预处理后 lfcPair.txt，避免重新下载原始 EC 数据。
+### Intermediate Data Files
+- `lfcPair.txt` – Gene pairs for LFC scoring, preprocessed from `aracyc_pathways.20230103`.
+- `geneList.txt` – Filtered gene list.
+- `netMatrix.txt` – Network adjacency matrix.
+- `pMatrix.txt` – Normalized probability transition matrix.
+- `child.txt` – Collection of GO descendant terms.
+- `son.txt` – Collection of direct GO child terms.
 
-代码信息
-| 类名 | 功能描述 |
-|---------|---------------|
-| `Annotation` | GO 注释信息数据模型 |
-| `FunctionNet` | 本体术语网络数据模型 |
-| `LfcPair` | LFC 基因对获取与预处理工具 |
-| `Term` | GO 术语数据模型 |
-| `Reader` | 文件读取辅助类 |
-| `Matrix` | 矩阵运算辅助类 |
-| `RandWalk` | 重启随机游走算法实现 |
-| `Calculator` | 核心计算类，提供三个主要接口 |
-| `Main` | 程序入口，串联完整流程 |
+### Result Data Files
+- `result0.9.mat` – Random walk result matrix with restart parameter 0.9.
+- `similarityResult0.9.txt` – Gene pair similarity scores with restart parameter 0.9.
+- `lfc0.9.txt` – Algorithm scoring results under each EC group.
 
-使用说明
-1. 导入项目
-打开 IntelliJ IDEA，选择`打开项目`。
-选择包含源代码的根目录，按默认选项完成导入。
-确保项目 SDK 设置为JDK 8 或更高版本。
+### Important Warning
+The acquisition of Arabidopsis EC grouping data (aracyc_pathways) is extremely difficult.  
+Official full library: https://plantcyc.org/downloads/, which requires a license agreement and dedicated software, and is very unstable in China.  
+TAIR archive: https://www.arabidopsis.org/download/list?dir=Pathways%2FArchived_Data_dumps%2FPMN9_September2014, only the 2014 old version is available.  
+For experiment reproduction, it is recommended to directly use the preprocessed `lfcPair.txt` provided in this project to avoid re-downloading the original EC data.
 
-2.配置数据路径
-提醒：拟南芥原始 EC 数据获取困难，建议直接使用项目提供的 lfcPair.txt，无需重新下载原始文件。
-将所有原始数据文件放置于项目根目录下的 `buf/` 文件夹中（或按代码中指定的路径）。其中，go-basic.obo直接置于该目录下，其他数据文件放置于`buf/Arabidopsis_thaliana/` 目录下。若路径不一致，请在 Main.java 或相关类中修改文件读取路径。若路径不一致，请在 `Main.java` 或相关类中修改文件读取路径。
+---
 
-3. 选择术语领域
-  注意Main.main()中的Calculator.data_initializer(gene_type, alpha, "molecular_function");
-一行的"molecular_function"参数，这说明此时该程序将选择"molecular_function"作为术语领域， 可将其改为"biological_process"以更换术语领域。
+## Code Information
 
-4. 运行程序
-在项目视图中找到 `Main` 类（通常位于 src/ 目录下）。
-右键点击 `Main` 类，选择 Run 'Main.main()'。
-程序将按顺序执行数据加载、网络构建、随机游走、结果输出。
+| Class Name | Description |
+|------------|-------------|
+| `Annotation` | Data model for GO annotation information |
+| `FunctionNet` | Data model for ontology term network |
+| `LfcPair` | Tool for obtaining and preprocessing LFC gene pairs |
+| `Term` | Data model for GO terms |
+| `Reader` | Helper class for file reading |
+| `Matrix` | Helper class for matrix operations |
+| `RandWalk` | Implementation of Random Walk with Restart algorithm |
+| `Calculator` | Core calculation class with three main interfaces |
+| `Main` | Program entry, connecting the full pipeline |
 
-5. 结果输出
-结果文件默认生成于`results/` 文件夹下。
+---
 
-运行环境要求
-IntelliJ IDEA（Community 或 Ultimate 版均可）
-JDK 8 或更高版本
-内存建议：堆内存 ≥ 4 GB
+## Usage Instructions
 
-方法步骤概述
-算法流程在 Calculator 类中被划分为四个主要阶段：
+### 1. Import the Project
+Open IntelliJ IDEA and select "Open Project".  
+Select the root directory containing the source code and import with default settings.  
+Ensure the project SDK is set to JDK 8 or higher.
 
-数据加载与解析：读取 GO 层次结构（go-basic.obo）、注释文件（sgd.gaf）和相互作用网络（YeastNet.v3.txt）。
+### 2. Configure Data Paths
+Note: Raw Arabidopsis EC data is difficult to obtain. Please directly use the `lfcPair.txt` provided in this project without re-downloading the original files.  
 
-网络预处理：构建邻接矩阵并将其归一化为概率转移矩阵（pMatrix.txt）。
+Place all raw data files in the `buf/` folder under the project root directory (or the path specified in the code).  
+- `go-basic.obo` is placed directly under `buf/`.  
+- All other data files are placed under `buf/Arabidopsis_thaliana/`.  
 
-重启随机游走：利用 RandWalk 类对每一对基因执行随机游走计算。
+If the path is inconsistent, modify the file reading path in `Main.java` or related classes.
 
-结果评估：将相似度得分与基于通路的 EC 分组（LFC 评分）进行对比评估。
+### 3. Select Ontology Domain
+Note the line in `Main.main()`:
+Calculator.data_initializer(gene_type, alpha, "molecular_function");
 
-关于详细的数据预处理步骤，请参见论文正文“材料与方法”部分。
+The parameter "molecular_function" indicates the selected GO domain. You can change it to "biological_process" to switch the domain.
 
-引用文献
- [作者列表]. 一种基于网络增强的基因功能相似性计算方法. PeerJ Computer Science, [年份].
+### 4. Run the Program
+Locate the Main class in the project view (usually under the src/ directory).
+Right-click the Main class and select Run 'Main.main()'.
+The program will execute sequentially: data loading, network construction, random walk, and result output.
 
-许可证 & 贡献说明
-本项目基于 [MIT 许可证](LICENSE) 开源。
+### 5. Result Output
+Result files are generated in the results/ folder by default.
+
+## Runtime Environment Requirements
+- IntelliJ IDEA (Community or Ultimate Edition)
+- JDK 8 or higher
+- Recommended memory: heap memory ≥ 4 GB
+
+## Methodology Overview
+The algorithm pipeline in the Calculator class is divided into four main stages:
+
+1.Data Loading & Parsing: Read GO hierarchy (go-basic.obo), annotation file (tair.gaf), and interaction network (AraNet.txt).
+
+2.Network Preprocessing: Construct the adjacency matrix and normalize it into a probability transition matrix (pMatrix.txt).
+
+3.Random Walk with Restart: Perform random walk calculations for each gene pair using the RandWalk class.
+
+4.Result Evaluation: Compare similarity scores with pathway-based EC groups (LFC scoring).
+
+For detailed data preprocessing steps, please refer to the Materials and Methods section of the main paper.
+
+## Citation
+[Author List]. An Enhanced Network-Based Method for Gene Functional Similarity Calculation. PeerJ Computer Science, [Year].
+
+## License & Contribution
+This project is open-source under the MIT License.
