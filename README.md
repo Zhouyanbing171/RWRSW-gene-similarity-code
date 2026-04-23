@@ -28,7 +28,8 @@ Preprocessed dataset for *Arabidopsis thaliana* (used in the experiment).
 3. Run the main algorithm from RWRSW_py/Main.py.
 4. Use scripts in RWRSW_re/ to reproduce experiments.
 
-##IMPORTANT NOTE ON README FILES
+## IMPORTANT NOTE ON README FILES
+
 The README files contained inside the compressed zip archives are OUTDATED.
 Please DO NOT read the README files within the compressed packages.
 
