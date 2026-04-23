@@ -6,6 +6,7 @@
 数据集信息
 原始数据文件
 - `aracyc_pathways.20230103` – AraCyc 数据库的 EC 分组数据（来源：https://www.arabidopsis.org/download/list?dir=Pathways%2FArchived_Data_dumps%2FPMN9_September2014）。
+注：数据获取困难：官方需申请 + 专用软件，TAIR 仅存 2014 年旧版，国内多数网站无法访问，建议使用配套预处理文件。
 - `tair.gaf` – TAIR 的 GO 注释文件（来源：https://current.geneontology.org/products/pages/downloads.html）。
 - `AraNet.txt` – 原始基因相互作用网络（来源：https://www.functionalnet.org/aranet/download.html）。
 - `AraNet_GS.txt` – 金标准基因对网络（来源：https://www.functionalnet.org/aranet/download.html）。
@@ -23,6 +24,9 @@
 - `result0.9.mat` – 重启参数为 0.9 时的随机游走结果矩阵。
 - `similarityResult0.9.txt` – 重启参数为 0.9 时基因对的相似度得分。
 - `lfc0.9.txt` – 各 EC 分组下的算法得分计算结果。
+
+重要提醒：拟南芥 EC 分组数据（aracyc_pathways）获取极困难官方完整库：https://plantcyc.org/downloads/，需填写许可协议、下载专用软件，国内访问与下载极不稳定。TAIR 存档：
+https://www.arabidopsis.org/download/list?dir=Pathways%2FArchived_Data_dumps%2FPMN9_September2014，仅能获取 2014 年旧版数据，无新版完整文件。复现本实验时，建议直接使用项目已提供的预处理后 lfcPair.txt，避免重新下载原始 EC 数据。
 
 代码信息
 | 类名 | 功能描述 |
@@ -43,7 +47,8 @@
 选择包含源代码的根目录，按默认选项完成导入。
 确保项目 SDK 设置为JDK 8 或更高版本。
 
-2. 配置数据路径
+2.配置数据路径
+提醒：拟南芥原始 EC 数据获取困难，建议直接使用项目提供的 lfcPair.txt，无需重新下载原始文件。
 将所有原始数据文件放置于项目根目录下的 `buf/` 文件夹中（或按代码中指定的路径）。其中，go-basic.obo直接置于该目录下，其他数据文件放置于`buf/Arabidopsis_thaliana/` 目录下。若路径不一致，请在 Main.java 或相关类中修改文件读取路径。若路径不一致，请在 `Main.java` 或相关类中修改文件读取路径。
 
 3. 选择术语领域
