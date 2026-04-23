@@ -2,7 +2,7 @@
 This repository contains the source code, experimental scripts, and dataset for the paper "An enhanced network-based method for gene functional similarity calculation" (submitted to PeerJ Computer Science).
 
 ## Repository Structure
-This repository includes three core folders in the root directory:
+This repository includes **four core folders** in the root directory:
 
 ### 1. RWRSW_py/
 Core Python implementation of the **RWRSW (Random Walk with Restart Smoothing)** algorithm.
@@ -22,6 +22,21 @@ Preprocessed dataset for *Arabidopsis thaliana* (used in the experiment).
 - Intermediate data: generated matrix files, gene lists, term relationships
 - Result data: similarity scores, random walk output, and LFC evaluation results
 
+### 4. Supplementary_Data/
+Full supplementary dataset for **all three model organisms** (yeast, Arabidopsis thaliana, and human).
+- This folder contains split-volume compressed archives of the complete experimental data
+- Includes raw networks, GO annotations, pathway files, preprocessed intermediate files, and final results
+- Designed for full reproducibility, even if individual data files are not directly available elsewhere
+
+---
+
+## 📦 Data Availability (Full Datasets)
+All data and code are permanently archived and accessible via:
+- **GitHub Repository**: https://github.com/Zhouyanbing171/RWRSW-gene-similarity-code
+- **Zenodo Permanent Archive**: https://doi.org/10.5281/zenodo.19440379
+
+---
+
 ## Usage
 1. All files are compressed and split into 20MB volumes to meet GitHub limits.
 2. Extract the .001 file to automatically restore the complete original package.
@@ -37,12 +52,11 @@ The LATEST and OFFICIAL README files for each module are located in the
 ROOT OF EACH UNZIPPED FOLDER:
 
 • RWRSW_py/README.md
-
 • RWRSW_re/README.md
-
 • RWRSW_Arabidopsis_thaliana/README.md
+• Supplementary_Data/README.md
 
-Please refer to these three files for up-to-date instructions.
+Please refer to these four files for up-to-date instructions.
 
 ## Note on Large File Uploads
 All large compressed files are split into 20MB volumes to comply with GitHub's file size limit.
@@ -51,5 +65,20 @@ To restore the original file:
 2. Right-click the `.001` file and select "Extract here" (using 7-Zip or WinRAR).
 All volumes will be automatically merged to restore the complete original archive.
 
+---
+
+## 🧪 Reproducibility
+This repository fully supports the reproducibility of all experiments in the manuscript, including:
+- Yeast (*Saccharomyces cerevisiae*)
+- Arabidopsis thaliana
+- Human (*Homo sapiens*)
+
+All code, data preprocessing steps, parameters, and evaluation metrics are fully documented.
+
+---
+
 ## Citation
 If you use this code or dataset in your research, please cite our paper.
+
+## License
+This project is open-source under the **MIT License**.
